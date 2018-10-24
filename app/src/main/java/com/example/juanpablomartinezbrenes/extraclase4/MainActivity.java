@@ -2,6 +2,7 @@ package com.example.juanpablomartinezbrenes.extraclase4;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,9 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("CutPasteId")
 
     TextView[][] matriz;
-    int i, j;
+    int[][] solution;
+    int N;
+    Handler handler = new Handler();
 
 
     @Override
@@ -20,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         matriz = new TextView[8][8];
-        i = j = 0;
-
+        solution = new int[8][8];
+        N = 8;
         matriz[0][0] = findViewById(R.id.a0);
         matriz[0][1] = findViewById(R.id.a1);
         matriz[0][2] = findViewById(R.id.a2);
@@ -93,18 +96,117 @@ public class MainActivity extends AppCompatActivity {
         matriz[7][5] = findViewById(R.id.h5);
         matriz[7][6] = findViewById(R.id.h6);
         matriz[7][7] = findViewById(R.id.h7);
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                matriz[i][j].setText("1");
+            }
+        }
+        matriz[1][0].setText("0");
+        matriz[3][3].setText("0");
+        matriz[3][2].setText("0");
+        matriz[2][3].setText("0");
+//        matriz[3][3].setText("0");
+//        matriz[1][0].setText("0");
+//        matriz[3][3].setText("0");
+//        matriz[1][0].setText("0");
+//        matriz[3][3].setText("0");
+//        matriz[1][0].setText("0");
+//        matriz[3][3].setText("0");
+//        matriz[1][0].setText("0");
+//        matriz[3][3].setText("0");
+
     }
 
 
     public void play(View view) {
-        matriz[i][j].setBackgroundColor(Color.GREEN);
-        matriz[i][j].setText("1");
-        j++;
-        i++;
+//        matriz[i][j].setBackgroundColor(Color.GREEN);
+////        matriz[i][j].setText("1");
+////        j++;
+////        i++;
+        solveMaze(matriz);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                if (solution[i][j] == 1){
+                    final int finalI = i;
+                    final int finalJ = j;
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            matriz[finalI][finalJ].setBackgroundColor(Color.GREEN);
+                        }
+                    }, 1000);
+
+
+                }
+            }
+        }
     }
 
     public void exit(View view) {
         MainActivity.this.finish();
+    }
+
+    boolean solveMaze(TextView maze[][]) {
+        int sol[][] = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        if (!solveMazeUtil(maze, 0, 0, sol)) {
+            System.out.print("Solution doesn't exist");
+            return false;
+        }
+
+        solution = sol;
+        return true;
+    }
+
+    boolean solveMazeUtil(TextView maze[][], int x, int y, int sol[][]) {
+        // if (x,y is goal) return true
+        if (x == N - 1 && y == N - 1) {
+            sol[x][y] = 1;
+            return true;
+        }
+
+        // Check if maze[x][y] is valid
+        if (isSafe(maze, x, y)) {
+            // mark x,y as part of solution path
+            sol[x][y] = 1;
+
+            if (solveMazeUtil(maze, x + 1, y+1, sol))
+                return true;
+
+            /* Move forward in x direction */
+            if (solveMazeUtil(maze, x + 1, y, sol))
+                return true;
+
+            /* If moving in x direction doesn't give
+               solution then  Move down in y direction */
+            if (solveMazeUtil(maze, x, y + 1, sol))
+                return true;
+
+            /* If none of the above movements works then
+               BACKTRACK: unmark x,y as part of solution
+               path */
+            sol[x][y] = 0;
+            return false;
+        }
+
+        return false;
+    }
+
+    boolean isSafe(TextView maze[][], int x, int y) {
+        // if (x,y outside maze) return false
+        return (x >= 0 && x < N && y >= 0 &&
+                y < N && maze[x][y].getText() == "1");
     }
 
 }
