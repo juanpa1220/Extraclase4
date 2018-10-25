@@ -8,20 +8,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.LinkedList;
+
 public class MainActivity extends AppCompatActivity {
     @SuppressLint("CutPasteId")
 
     TextView[][] matriz;
     int[][] solution;
+    int[][] obstacles = {
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0}
+    };
     int N;
     Handler handler = new Handler();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         matriz = new TextView[8][8];
         solution = new int[8][8];
         N = 8;
@@ -97,55 +107,59 @@ public class MainActivity extends AppCompatActivity {
         matriz[7][6] = findViewById(R.id.h6);
         matriz[7][7] = findViewById(R.id.h7);
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                matriz[i][j].setText("1");
-            }
-        }
-        matriz[1][0].setText("0");
-        matriz[3][3].setText("0");
-        matriz[3][2].setText("0");
-        matriz[2][3].setText("0");
-//        matriz[3][3].setText("0");
-//        matriz[1][0].setText("0");
-//        matriz[3][3].setText("0");
-//        matriz[1][0].setText("0");
-//        matriz[3][3].setText("0");
-//        matriz[1][0].setText("0");
-//        matriz[3][3].setText("0");
-//        matriz[1][0].setText("0");
-//        matriz[3][3].setText("0");
-
     }
 
 
     public void play(View view) {
-//        matriz[i][j].setBackgroundColor(Color.GREEN);
-////        matriz[i][j].setText("1");
-////        j++;
-////        i++;
+        update();
         solveMaze(matriz);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
 
-                if (solution[i][j] == 1){
-                    final int finalI = i;
-                    final int finalJ = j;
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            matriz[finalI][finalJ].setBackgroundColor(Color.GREEN);
-                        }
-                    }, 1000);
-
-
+                if (solution[i][j] == 1) {
+                    matriz[i][j].setBackgroundColor(Color.GREEN);
+                    matriz[i][j].setText("1");
                 }
             }
         }
+//        update();
     }
 
     public void exit(View view) {
         MainActivity.this.finish();
+    }
+
+    void getObstacle() {
+        int i = 2;
+        while (i > 0) {
+            int num1 = (int) (Math.random() * 8);
+            int num2 = (int) (Math.random() * 8);
+
+            if (obstacles[num1][num2] == 0) {
+                obstacles[num1][num2] = -1;
+                i--;
+            }
+        }
+
+    }
+
+    void update() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                matriz[i][j].setText("0");
+                matriz[i][j].setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
+        getObstacle();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (obstacles[i][j] == -1) {
+                    matriz[i][j].setBackgroundColor(Color.RED);
+                    matriz[i][j].setText("-1");
+                }
+            }
+        }
     }
 
     boolean solveMaze(TextView maze[][]) {
@@ -181,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             // mark x,y as part of solution path
             sol[x][y] = 1;
 
-            if (solveMazeUtil(maze, x + 1, y+1, sol))
+            if (solveMazeUtil(maze, x + 1, y + 1, sol))
                 return true;
 
             /* Move forward in x direction */
@@ -206,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isSafe(TextView maze[][], int x, int y) {
         // if (x,y outside maze) return false
         return (x >= 0 && x < N && y >= 0 &&
-                y < N && maze[x][y].getText() == "1");
+                y < N && maze[x][y].getText() == "0");
     }
 
 }
