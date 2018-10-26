@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     @SuppressLint("CutPasteId")
 
-    int N;
+    int N, reg;
     TextView[][] matriz;
     int[][] solution;
     int[][] obstacles = {
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         matriz = new TextView[8][8];
         solution = new int[8][8];
         N = 8;
+        reg = 0;
         matriz[0][0] = findViewById(R.id.a0);
         matriz[0][1] = findViewById(R.id.a1);
         matriz[0][2] = findViewById(R.id.a2);
@@ -117,18 +118,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        update();
-        solveMaze(matriz);
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-
-                if (solution[i][j] == 1) {
-                    matriz[i][j].setBackgroundColor(Color.GREEN);
-                    matriz[i][j].setText("1");
+        int a = 1;
+        for(int x = 0; x < N; x++) {
+            if(reg == 0){
+                reg = 1;
+                a = 0;
+                break;
+            }
+            for(int y = 0; y < N; y++) {
+                if(matriz[x][y].getText() == "0"){
+                    a = 0;
+                    break;
                 }
             }
         }
+        if(a == 0) {
+            update();
+            solveMaze(matriz);
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+
+                    if (solution[i][j] == 1) {
+                        matriz[i][j].setBackgroundColor(Color.GREEN);
+                        matriz[i][j].setText("1");
+                    }
+                }
+            }
 //        update();
+        }
     }
 
     public void reset(View view) {
