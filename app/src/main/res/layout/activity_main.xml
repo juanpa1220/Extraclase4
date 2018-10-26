@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="362dp"
+        android:layout_height="537dp"
+        android:gravity="center_vertical"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="40dp">
+        tools:layout_editor_absoluteX="6dp">
 
         <TableRow
             android:id="@+id/a"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
 
@@ -31,6 +35,7 @@
                     android:layout_weight="1"
                     android:text="0"
                     android:textAlignment="center"
+                    android:textColorLink="#009688"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -100,8 +105,11 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/b"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -185,8 +193,11 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/c"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -270,8 +281,11 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/d"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -355,8 +369,11 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/e"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -440,8 +457,11 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/f"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -525,8 +545,11 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/g"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -610,8 +633,11 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/h"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="#009688">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -696,8 +722,11 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="10dp"
+            android:background="#0097A7"
             android:onClick="play"
             android:text="@string/play"
             tools:ignore="MissingConstraints"
@@ -706,12 +735,28 @@
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="10dp"
+            android:background="#0097A7"
+            android:onClick="reset"
+            android:text="reset"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="447dp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="103dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="10dp"
+            android:background="#0097A7"
             android:onClick="exit"
             android:text="@string/exit"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteX="160dp"
             tools:layout_editor_absoluteY="447dp" />
 
     </LinearLayout>

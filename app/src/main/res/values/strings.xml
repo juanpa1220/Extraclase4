@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Extraclase4</string>
+    <string name="app_name">Backtracking Maze</string>
     <string name="play">PLAY</string>
     <string name="exit">EXIT</string>
 </resources>

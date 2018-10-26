@@ -1,6 +1,7 @@
 package com.example.juanpablomartinezbrenes.extraclase4;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     @SuppressLint("CutPasteId")
 
+    int N;
     TextView[][] matriz;
     int[][] solution;
     int[][] obstacles = {
@@ -25,13 +27,14 @@ public class MainActivity extends AppCompatActivity {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0}
     };
-    int N;
+
     Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         matriz = new TextView[8][8];
         solution = new int[8][8];
         N = 8;
@@ -109,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void exit(View view) {
+        MainActivity.this.finish();
+    }
 
     public void play(View view) {
         update();
@@ -125,8 +131,17 @@ public class MainActivity extends AppCompatActivity {
 //        update();
     }
 
-    public void exit(View view) {
-        MainActivity.this.finish();
+    public void reset(View view) {
+        //solution = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                matriz[i][j].setBackgroundColor(Color.TRANSPARENT);
+                matriz[i][j].setText("0");
+                solution[i][j] = 0;
+                obstacles[i][j] = 0;
+            }
+        }
+        update2();
     }
 
     void getObstacle() {
@@ -144,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void update() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 matriz[i][j].setText("0");
                 matriz[i][j].setBackgroundColor(Color.TRANSPARENT);
             }
@@ -156,8 +171,17 @@ public class MainActivity extends AppCompatActivity {
             for (int j = 0; j < 8; j++) {
                 if (obstacles[i][j] == -1) {
                     matriz[i][j].setBackgroundColor(Color.RED);
-                    matriz[i][j].setText("-1");
+                    matriz[i][j].setText("2");
                 }
+            }
+        }
+    }
+
+    void update2() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                matriz[i][j].setText("0");
+                matriz[i][j].setBackgroundColor(Color.TRANSPARENT);
             }
         }
     }
@@ -195,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
             // mark x,y as part of solution path
             sol[x][y] = 1;
 
-            if (solveMazeUtil(maze, x + 1, y + 1, sol))
-                return true;
+//            if (solveMazeUtil(maze, x + 1, y + 1, sol))
+//                return true;
 
             /* Move forward in x direction */
             if (solveMazeUtil(maze, x + 1, y, sol))
