@@ -1,0 +1,4 @@
+# Extraclase #4
+
+Utilizando el conocimiento adquirido en clases y por investigación propia, debe implementar un algoritmo de Backtracking para resolver un laberinto. Debe ser implementado mediante una aplicación mobile. Puede ser desarrollado en Android o IOS, queda a criterio de cada equipo.
+Se debe implementar en una matriz de 8x8 y de forma aleatoria se deben agregar obstáculos en el tablero. El recorrido siempre inicia en la esquina superior izquierda y debe terminar en la esquina inferior derecha. La primera iteración inicia con 2 obstáculos y cada vez que se llega al objetivo inicia de nuevo agregando 2 obstáculos más. Se debe mostrar paso a paso las decisiones que va tomando el algoritmo de Backtracking para intentar llegar al objetivo. Se debe poder visualizar la ruta completa que lleva en cada paso. Los obstáculos se van incrementando hasta el momento que no se pueda poner más obstáculos para permitir que haya al menos una ruta para llegar al objetivo.
