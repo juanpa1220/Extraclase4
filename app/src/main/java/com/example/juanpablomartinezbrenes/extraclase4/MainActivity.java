@@ -145,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 //        update();
+        }  else {
+            Toast.makeText(this, "Ya no se pueden agregar más obstáculos, por favor presione RESET si desea intentarlo de nuevo.", Toast.LENGTH_SHORT).show();
         }
     }
 
